@@ -47,5 +47,6 @@ for i in range (valor):
 tempo_inicial = time.time() # em segundos
 mergesort(alist)
 tempo_final=time.time()# em segundos
-print (str(valor)+";"+str(tempo_final - tempo_inicial)+";")
+print(str(valor) + ";" + f"{tempo_final - tempo_inicial:.15f}" + ";")
+
 #print(alist)
