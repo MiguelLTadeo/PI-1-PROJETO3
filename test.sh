@@ -4,6 +4,7 @@ linguagem=""
 algoritmo=""
 execucoes=0
 entrada=0
+soma_total=0.0
 
 mostrar_uso() {
   echo "Uso: $0 -l <c|python> -a <merge|bubble> -n <execucoes> -t <entrada>"
@@ -21,6 +22,8 @@ while getopts "l:a:n:t:" opt; do
   esac
 done
 
+arquivo="${linguagem}${algoritmo}.csv"
+
 if [ -z "$linguagem" ] || [ -z "$algoritmo" ] || [ -z "$entrada" ]; then
   echo "Erro: Faltam argumentos obrigatórios!" >&2
   mostrar_uso
@@ -35,19 +38,33 @@ escolhe_algoritmo() {
 
 executa_prog() {
     if [ "$linguagem" = "python" ]; then
+        arquivolog="${algoritmo}${linguagem}${entrada}.csv"
+        > "$arquivolog"
+
         for ((i=1; i<=execucoes; i++))
         do
-            python3 "${algoritmo}sort.py" "$entrada"
+            valor_atual=$( python3 "${algoritmo}sort.py" "$entrada" | cut -d ';' -f2)
+            echo $valor_atual>>"$arquivolog"
+            soma_total=$(echo "$soma_total + $valor_atual" | bc -l)
             echo "Contagem: $i"
         done
+        
+        MEDIA=$(echo "scale=6; $soma_total / $execucoes" | bc -l)
+        echo "${entrada};${MEDIA}"
     elif [ "$linguagem" = "c" ]; then
+        arquivolog="${algoritmo}${linguagem}${entrada}.csv"
+        > "$arquivolog"
+        
         gcc "${algoritmo}sort.c" -o run
         for ((i=1; i<=execucoes; i++))
         do
-            ./run "$entrada"
+            valor_atual=$(./run "$entrada" | cut -d ';' -f2)
+            echo $valor_atual>>"$arquivolog"
+            soma_total=$( echo "$soma_total + $valor_atual" | bc -l)
             echo "Contagem: $i"
         done
-
+        MEDIA=$( echo "scale=6; $soma_total / $execucoes" | bc -l)
+        echo "${entrada};${MEDIA}"
     else
         echo "Linguagem inválida. Use 'c' ou 'python'." >&2
         return 1
