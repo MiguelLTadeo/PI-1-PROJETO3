@@ -12,7 +12,6 @@ set xlabel "Tamanho da Entrada (N)"
 set ylabel "Tempo Médio de Execução (segundos)"
 
 set logscale x
-set logscale y
 
 # quando a gente for gerar o código tem que conferir o nome dos arquivos
 # coluna 1 eixo x e coluna 2 eixo y
