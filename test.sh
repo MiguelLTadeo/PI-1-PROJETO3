@@ -22,15 +22,15 @@ while getopts "l:a:n:t:" opt; do
   esac
 done
 
-arquivo="${linguagem}${algoritmo}.csv"
-
-if [ -z "$linguagem" ] || [ -z "$algoritmo" ] || [ -z "$entrada" ]; then
-  echo "Erro: Faltam argumentos obrigatórios!" >&2
-  mostrar_uso
+if [ -z "$linguagem" ] || [ -z "$algoritmo" ] || [ -z "$entrada" ];
+  then
+    echo "Erro: Faltam argumentos obrigatórios!" >&2
+    mostrar_uso
 fi
 
 escolhe_algoritmo() {
-    if [ "$algoritmo" != "merge" ] && [ "$algoritmo" != "bubble" ]; then
+    if [ "$algoritmo" != "merge" ] && [ "$algoritmo" != "bubble" ]; 
+      then
         echo "Algoritmo inválido. Use 'merge' ou 'bubble'." >&2
         return 1
     fi  
@@ -45,6 +45,7 @@ executa_prog() {
         do
             valor_atual=$( python3 "${algoritmo}sort.py" "$entrada" | cut -d ';' -f2)
             echo $valor_atual>>"$arquivolog"
+            echo $valor_atual
             soma_total=$(echo "$soma_total + $valor_atual" | bc -l)
             echo "Contagem: $i"
         done
@@ -54,12 +55,13 @@ executa_prog() {
     elif [ "$linguagem" = "c" ]; then
         arquivolog="${algoritmo}${linguagem}${entrada}.csv"
         > "$arquivolog"
-        
+
         gcc "${algoritmo}sort.c" -o run
         for ((i=1; i<=execucoes; i++))
         do
             valor_atual=$(./run "$entrada" | cut -d ';' -f2)
             echo $valor_atual>>"$arquivolog"
+            echo $valor_atual
             soma_total=$( echo "$soma_total + $valor_atual" | bc -l)
             echo "Contagem: $i"
         done
