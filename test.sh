@@ -4,9 +4,10 @@ linguagem=""
 algoritmo=""
 execucoes=0
 entrada=0
+soma_total=0.0
 
 mostrar_uso() {
-  echo "Uso: $0 -l <c|python> -a <merge|bubble> -n <numero_execucoes> -t <arquivo_entrada>"
+  echo "Uso: $0 -l <c|python> -a <merge|bubble> -n <execucoes> -t <entrada>"
   exit 1
 }
 
@@ -37,16 +38,22 @@ executa_prog() {
     if [ "$linguagem" = "python" ]; then
         for ((i=1; i<=execucoes; i++))
         do
-            python3 "${algoritmo}sort.py" "$entrada"
+            valor_atual=$( python3 "${algoritmo}sort.py" "$entrada" | awk -F '[;)]' '{print $2}' )
+            soma_total=$( echo "$soma_total + $valor_atual" | bc )
             echo "Contagem: $i"
         done
-        
+        MEDIA=$( echo "scale=4; $soma_total / $execucoes" | bc )
+        echo $MEDIA
     elif [ "$linguagem" = "c" ]; then
+        gcc "${algoritmo}sort.c" -o run
         for ((i=1; i<=execucoes; i++))
         do
-            gcc "${algoritmo}sort.c" -o run && ./run "$entrada"
+            valor_atual=$( ./run "$entrada" | awk -F '[;)]' '{print $2}' )
+            soma_total=$( echo "$soma_total + $valor_atual" | bc )
             echo "Contagem: $i"
         done
+        MEDIA=$( echo "scale=4; $soma_total / $execucoes" | bc )
+        echo $MEDIA
     else
         echo "Linguagem inválida. Use 'c' ou 'python'." >&2
         return 1
