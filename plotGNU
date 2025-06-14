@@ -1,0 +1,26 @@
+set terminal png size 1024,768
+
+set output 'grafico.png'
+
+set title "Grafico Tempo x Entradas"
+
+set datafile separator ";"
+
+set grid
+
+set xlabel "Tamanho da Entrada (N)"
+set ylabel "Tempo Médio de Execução (segundos)"
+
+set logscale x
+
+# quando a gente for gerar o código tem que conferir o nome dos arquivos
+# coluna 1 eixo x e coluna 2 eixo y
+# linespoints pra conectar os pontos gerados
+
+plot \
+    'dados_bubblesort_c.csv' using 1:2 with linespoints title 'BubbleSort (C)', \
+    'dados_mergesort_c.csv' using 1:2 with linespoints title 'MergeSort (C)', \
+    'dados_bubblesort_py.csv' using 1:2 with linespoints title 'BubbleSort (Python)', \
+    'dados_mergesort_py.csv' using 1:2 with linespoints title 'MergeSort (Python)'
+
+set output
