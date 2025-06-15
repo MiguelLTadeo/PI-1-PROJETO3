@@ -16,12 +16,12 @@ set logscale x
 
 # quando a gente for gerar o código tem que conferir o nome dos arquivos
 # coluna 1 eixo x e coluna 2 eixo y
-# linespoints pra conectar os pontos gerados
+# linespoints pra conectar os pontos gerados, smooth bezier pra deixar com um aspecto mais curvado e o linewidht 2 para a grossura da linha
 
 plot \
-    'medias/cbubblemedias.csv' using 1:2 with linespoints title 'BubbleSort (C)', \
-    'medias/cmergemedias.csv' using 1:2 with linespoints title 'MergeSort (C)', \
-    'medias/pythonbubblemedias.csv' using 1:2 with linespoints title 'BubbleSort (Python)', \
-    'medias/pythonmergemedias.csv' using 1:2 with linespoints title 'MergeSort (Python)'
+    'medias/cbubblemedias.csv' using 1:2 with linespoints smooth bezier linewidth 2 title 'BubbleSort (C)', \
+    'medias/cmergemedias.csv' using 1:2 with linespoints smooth bezier linewidth 2 title 'MergeSort (C)', \
+    'medias/pythonbubblemedias.csv' using 1:2 with linespoints smooth bezier linewidth 2 title 'BubbleSort (Python)', \
+    'medias/pythonmergemedias.csv' using 1:2 with linespoints smooth bezier linewidth 2 title 'MergeSort (Python)'
 
 set output
