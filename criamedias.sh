@@ -39,7 +39,6 @@ if [ -z "$linguagem" ] || [ -z "$algoritmo" ];
     then
         echo "Erro: Parâmetros -l (linguagem) e -a (algoritmo) são obrigatórios."
         mostrar_uso
-        exit 1
 fi
 
 escolhe_algoritmo && escolhe_prog
