@@ -16,7 +16,7 @@ set logscale x
 
 # quando a gente for gerar o código tem que conferir o nome dos arquivos
 # coluna 1 eixo x e coluna 2 eixo y
-# linespoints pra conectar os pontos gerados
+# linespoints pra conectar os pontos gerados, smooth bezier pra deixar com um aspecto mais curvado e o linewidht 2 para a grossura da linha
 
 plot \
     'medias/cbubblemedias.csv' using 1:2 with linespoints smooth bezier linewidth 2 title 'BubbleSort (C)', \
