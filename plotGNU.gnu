@@ -19,9 +19,9 @@ set logscale x
 # linespoints pra conectar os pontos gerados
 
 plot \
-    'medias/cbubblemedias.csv' using 1:2 with linespoints title 'BubbleSort (C)', \
-    'medias/cmergemedias.csv' using 1:2 with linespoints title 'MergeSort (C)', \
-    'medias/pythonbubblemedias.csv' using 1:2 with linespoints title 'BubbleSort (Python)', \
-    'medias/pythonmergemedias.csv' using 1:2 with linespoints title 'MergeSort (Python)'
+    'medias/cbubblemedias.csv' using 1:2 with linespoints smooth bezier linewidth 2 title 'BubbleSort (C)', \
+    'medias/cmergemedias.csv' using 1:2 with linespoints smooth bezier linewidth 2 title 'MergeSort (C)', \
+    'medias/pythonbubblemedias.csv' using 1:2 with linespoints smooth bezier linewidth 2 title 'BubbleSort (Python)', \
+    'medias/pythonmergemedias.csv' using 1:2 with linespoints smooth bezier linewidth 2 title 'MergeSort (Python)'
 
 set output

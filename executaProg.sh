@@ -58,7 +58,6 @@ executa_programa() {
           done
         
         MEDIA=$(echo "scale=6; $soma_total / $execucoes" | bc -l)
-
         echo "${entrada};${MEDIA}"
 }
 
